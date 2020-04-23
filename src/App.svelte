@@ -21,7 +21,8 @@
       imageUrl:
         "https://cdn.pixabay.com/photo/2016/09/08/04/12/programmer-1653351_1280.png",
       address: "5th Avenue Road, 323454 Los Angeles",
-      contactEmail: "code@test.com"
+      contactEmail: "code@test.com",
+      isFavorite: false
     },
     {
       id: "m2",
@@ -31,7 +32,8 @@
       imageUrl:
         "https://cdn.pixabay.com/photo/2017/11/21/12/45/karate-2968106_1280.jpg",
       address: "17th Middle Park, SE9 5HS London",
-      contactEmail: "karate@test.com"
+      contactEmail: "karate@test.com",
+      isFavorite: false
     }
   ];
 
@@ -47,6 +49,16 @@
     };
 
     meetups = [newMeetup, ...meetups];
+  };
+
+  const toggleFavorite = event => {
+    const id = event.detail;
+    const updatedMeetup = { ...meetups.find(meetup => meetup.id === id) };
+    updatedMeetup.isFavorite = !updatedMeetup.isFavorite;
+    const meetupIndex = meetups.findIndex(meetup => meetup.id === id);
+    const updatedMeetups = [...meetups];
+    updatedMeetups[meetupIndex] = updatedMeetup;
+    meetups = updatedMeetups;
   };
 </script>
 
@@ -100,5 +112,5 @@
       on:input={event => (description = event.target.value)} />
     <Button type="submit" caption="Save" />
   </form>
-  <MeetupGrid {meetups} />
+  <MeetupGrid {meetups} on:togglefavorite={toggleFavorite} />
 </main>
