@@ -47,11 +47,13 @@
       contactEmail: email,
       address: address
     };
+    // console.log(newMeetup);
 
     meetups = [newMeetup, ...meetups];
   };
 
   const toggleFavorite = event => {
+    // console.log(event);
     const id = event.detail;
     const updatedMeetup = { ...meetups.find(meetup => meetup.id === id) };
     updatedMeetup.isFavorite = !updatedMeetup.isFavorite;
