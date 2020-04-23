@@ -1,6 +1,6 @@
 <script>
   export let type = "button";
-  export let caption;
+  // export let caption; instead of caption we can use <slot />
   export let href = null;
   export let mode = null;
   export let colorToggleFavorite = null;
@@ -85,9 +85,11 @@
 </style>
 
 {#if href}
-  <a {href}>{caption}</a>
+  <a {href}>
+    <slot />
+  </a>
 {:else}
   <button class="{mode} {colorToggleFavorite}" {type} on:click>
-    {caption}
+    <slot />
   </button>
 {/if}

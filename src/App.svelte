@@ -33,6 +33,7 @@
   let editMode;
 
   const addMeetup = event => {
+    console.log(event);
     const newMeetup = {
       id: Math.random().toString(),
       title: event.detail.title,
@@ -50,7 +51,7 @@
   };
 
   const toggleFavorite = event => {
-    // console.log(event);
+    console.log(event);
     const id = event.detail;
     const updatedMeetup = { ...meetups.find(meetup => meetup.id === id) };
     updatedMeetup.isFavorite = !updatedMeetup.isFavorite;
@@ -75,7 +76,7 @@
 
 <main>
   <div class="button-new-meetup">
-    <Button caption="New Meetup" on:click={() => (editMode = 'add')} />
+    <Button on:click={() => (editMode = 'add')}>New Meetup</Button>
   </div>
   {#if editMode === 'add'}
     <EditMeetup on:save={addMeetup} />
