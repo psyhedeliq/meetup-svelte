@@ -4,6 +4,7 @@
   export let href = null;
   export let mode = null;
   export let colorToggleFavorite = null;
+  export let disabled = false;
 </script>
 
 <style>
@@ -89,7 +90,7 @@
     <slot />
   </a>
 {:else}
-  <button class="{mode} {colorToggleFavorite}" {type} on:click>
+  <button class="{mode} {colorToggleFavorite}" {type} on:click {disabled}>
     <slot />
   </button>
 {/if}
