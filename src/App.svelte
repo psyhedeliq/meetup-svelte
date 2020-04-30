@@ -1,41 +1,18 @@
 <script>
+  import meetups from "./Meetups/meetups-store.js";
   import Header from "./UI/Header.svelte";
   import MeetupGrid from "./Meetups/MeetupGrid.svelte";
   import TextInput from "./UI/TextInput.svelte";
   import Button from "./UI/Button.svelte";
   import EditMeetup from "./Meetups/EditMeetup.svelte";
 
-  let meetups = [
-    {
-      id: "m1",
-      title: "Coding Bootcamp",
-      subtitle: "Learn to code in 8 weeks",
-      description: "In this Bootcamp you will write your first line of code!",
-      imageUrl:
-        "https://cdn.pixabay.com/photo/2016/11/18/18/37/programming-1836330_1280.png",
-      address: "5th Avenue Road, 323454 Los Angeles",
-      contactEmail: "code@test.com",
-      isFavorite: false
-    },
-    {
-      id: "m2",
-      title: "Karate Lessons",
-      subtitle: "Get your black belt",
-      description: "In this karate course you will learn to defend yourself!",
-      imageUrl:
-        "https://cdn.pixabay.com/photo/2019/02/17/17/11/karate-4002687_1280.png",
-      address: "17th Middle Park, SE9 5HS London",
-      contactEmail: "karate@test.com",
-      isFavorite: false
-    }
-  ];
+  // let meetups = ;
 
   let editMode;
 
   const addMeetup = event => {
     console.log(event);
-    const newMeetup = {
-      id: Math.random().toString(),
+    const meetupData = {
       title: event.detail.title,
       subtitle: event.detail.subtitle,
       description: event.detail.description,
@@ -45,20 +22,14 @@
     };
     // console.log(newMeetup);
 
-    meetups = [newMeetup, ...meetups];
-
+    meetups.addMeetup(meetupData);
     editMode = null;
   };
 
   const toggleFavorite = event => {
-    console.log(event);
+    // console.log(event);
     const id = event.detail;
-    const updatedMeetup = { ...meetups.find(meetup => meetup.id === id) };
-    updatedMeetup.isFavorite = !updatedMeetup.isFavorite;
-    const meetupIndex = meetups.findIndex(meetup => meetup.id === id);
-    const updatedMeetups = [...meetups];
-    updatedMeetups[meetupIndex] = updatedMeetup;
-    meetups = updatedMeetups;
+    meetups.toggleFavorite(id);
   };
 
   const cancelEdit = () => {
@@ -85,5 +56,5 @@
   {#if editMode === 'add'}
     <EditMeetup on:save={addMeetup} on:cancel={cancelEdit} />
   {/if}
-  <MeetupGrid {meetups} on:togglefavorite={toggleFavorite} />
+  <MeetupGrid meetups={$meetups} on:togglefavorite={toggleFavorite} />
 </main>
