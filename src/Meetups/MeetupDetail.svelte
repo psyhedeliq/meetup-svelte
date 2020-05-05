@@ -68,6 +68,7 @@
     <h1>{selectedMeetup.title}</h1>
     <h2>{selectedMeetup.subtitle} - {selectedMeetup.address}</h2>
     <p>{selectedMeetup.description}</p>
+    <!-- <p>{selectedMeetup.contactEmail}</p> -->
     <Button href="mailto:{selectedMeetup.contactEmail}">Contact</Button>
     <Button type="button" mode="outline" on:click={() => dispatch('close')}>
       Close
