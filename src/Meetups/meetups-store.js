@@ -50,6 +50,12 @@ const customMeetupStore = {
     })
   },
 
+  removeMeetup: (id) => {
+    meetups.update((items) => {
+      return items.filter((i) => i.id !== id)
+    })
+  },
+
   toggleFavorite: (id) => {
     meetups.update((items) => {
       const updatedMeetup = { ...items.find((meetup) => meetup.id === id) }
