@@ -56,7 +56,20 @@
     };
     // console.log(newMeetup);
     if (id) {
-      meetups.updateMeetup(id, meetupData);
+      fetch(`https://svelte-rest-api.firebaseio.com/meetups/${id}.json`, {
+        method: "PATCH",
+        body: JSON.stringify(meetupData),
+        headers: { "Content-Type": "application/json" }
+      })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error("Something went wrong!");
+          }
+          meetups.updateMeetup(id, meetupData);
+        })
+        .catch(error => {
+          console.log(error);
+        });
     } else {
       fetch("https://svelte-rest-api.firebaseio.com/meetups.json", {
         method: "POST",
