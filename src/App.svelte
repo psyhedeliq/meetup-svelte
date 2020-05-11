@@ -14,6 +14,30 @@
   let page = "overview";
   let pageData = {};
 
+  fetch("https://svelte-rest-api.firebaseio.com/meetups.json")
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(
+          "Oooops, fetching meetups failed! Please try again later!"
+        );
+      }
+      return response.json();
+    })
+    .then(data => {
+      // console.log(data);
+      const loadedMeetups = [];
+      for (let key in data) {
+        loadedMeetups.push({
+          ...data[key],
+          id: key
+        });
+      }
+      meetups.setMeetups(loadedMeetups);
+    })
+    .catch(error => {
+      console.log(error);
+    });
+
   const savedMeetup = event => {
     // console.log(event);
     editMode = null;
