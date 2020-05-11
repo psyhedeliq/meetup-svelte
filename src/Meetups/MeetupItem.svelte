@@ -16,7 +16,22 @@
   const dispatch = createEventDispatcher();
 
   const toggleFavorite = () => {
-    meetups.toggleFavorite(id);
+    fetch(`https://svelte-rest-api.firebaseio.com/meetups/${id}.json`, {
+      method: "PATCH",
+      body: JSON.stringify({ isFavorite: !isFav }),
+      headers: { "Content-Type": "application/json" }
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(
+            "Ooops, something went wrong, please try again later!"
+          );
+        }
+        meetups.toggleFavorite(id);
+      })
+      .catch(error => {
+        console.log(error);
+      });
   };
 </script>
 
