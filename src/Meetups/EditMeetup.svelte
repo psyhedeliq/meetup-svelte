@@ -63,7 +63,7 @@
       })
         .then(response => {
           if (!response.ok) {
-            throw new Error("Something went wrong!");
+            throw new Error("An error occoured, please try again!");
           }
           meetups.updateMeetup(id, meetupData);
         })
@@ -98,7 +98,18 @@
   };
 
   const deleteMeetup = () => {
-    meetups.removeMeetup(id);
+    fetch(`https://svelte-rest-api.firebaseio.com/meetups/${id}.json`, {
+      method: "DELETE"
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(
+            "Ooops something went wrong, please try again later!"
+          );
+        }
+        meetups.removeMeetup(id);
+      })
+      .catch(error => console.log(error));
     dispatch("save");
   };
 

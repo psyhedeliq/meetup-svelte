@@ -37,7 +37,7 @@
       // we do the setTimeout deliberatly to slow things down so we can add a loading spinner
       setTimeout(() => {
         isLoading = false;
-        meetups.setMeetups(loadedMeetups);
+        meetups.setMeetups(loadedMeetups.reverse());
       }, 1000);
     })
     .catch(error => {
