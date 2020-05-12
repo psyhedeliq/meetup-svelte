@@ -61,14 +61,14 @@
         body: JSON.stringify(meetupData),
         headers: { "Content-Type": "application/json" }
       })
-        .then(response => {
-          if (!response.ok) {
+        .then(res => {
+          if (!res.ok) {
             throw new Error("An error occoured, please try again!");
           }
           meetups.updateMeetup(id, meetupData);
         })
-        .catch(error => {
-          console.log(error);
+        .catch(err => {
+          console.log(err);
         });
     } else {
       fetch("https://svelte-rest-api.firebaseio.com/meetups.json", {
@@ -76,11 +76,11 @@
         body: JSON.stringify({ ...meetupData, isFavorite: false }),
         headers: { "Content-Type": "application/json" }
       })
-        .then(response => {
-          if (!response.ok) {
+        .then(res => {
+          if (!res.ok) {
             throw new Error("An error occoured, please try again!");
           }
-          return response.json();
+          return res.json();
         })
         .then(data => {
           // console.log(data);
@@ -90,8 +90,8 @@
             id: data.name
           });
         })
-        .catch(error => {
-          console.log(error);
+        .catch(err => {
+          console.log(err);
         });
     }
     dispatch("save");
@@ -101,15 +101,15 @@
     fetch(`https://svelte-rest-api.firebaseio.com/meetups/${id}.json`, {
       method: "DELETE"
     })
-      .then(response => {
-        if (!response.ok) {
+      .then(res => {
+        if (!res.ok) {
           throw new Error(
             "Ooops something went wrong, please try again later!"
           );
         }
         meetups.removeMeetup(id);
       })
-      .catch(error => console.log(error));
+      .catch(err => console.log(err));
     dispatch("save");
   };
 
